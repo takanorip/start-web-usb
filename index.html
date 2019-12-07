@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button type="submit" id="access-button">Access</button>
+  <script type="text/javascript">
+    (
+      () => {
+        const accessButton = document.querySelector('#access-button')
+        const access = async () => {
+          const device = await navigator.usb.requestDevice({'filters': []})
+          await device.open()
+          await device.selectConfiguration(1)
+          await device.claimInterface(0)
+        }
+        accessButton.addEventListener('click', access, false)
+      }
+    )()
+  </script>
+</body>
+</html>
